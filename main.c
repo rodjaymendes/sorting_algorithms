@@ -9,7 +9,7 @@
 
 
 //opções
-#define CRIAR_PASTA 0
+#define CRIAR_PASTA 1
 
 int main(){
 	srand(time(NULL));

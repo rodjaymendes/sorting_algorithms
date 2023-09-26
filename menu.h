@@ -1,6 +1,6 @@
 #include "funcoes.h"
-char vetor_ordens[4][16] = {"", "crescentes", "decrescentes", "aleatorias"};
-int vetor_instancias[7] = {0, 10, 100, 1000, 10000, 100000, 1000000};
+#include <string.h>
+
 int menu_algoritmo(){
 	int op = 0;
 	printf("--------MENU--------\n");
@@ -39,36 +39,110 @@ int menu_instancia(){
 }
 
 int executa(){
-	//executa o menu
-	int algoritmo = menu_algoritmo();
 	int ordem = 0;
 	int instancia = 0;
-	switch(algoritmo){
+	int op_algoritmo;
+	char nome_algoritmo[32] = {""};
+	
+
+
+	
+
+
+	op_algoritmo = menu_algoritmo();
+	switch(op_algoritmo){
 		case 0:
 			return 0;
 		break;
+		
 		case 1:
-			//printf("   INSERTION SORT   \n");
-			//gera os arquivos de entrada
-			ordem = menu_ordem();
-			instancia = menu_instancia();
-			char arquivo_entrada[256];
-			char arquivo_saida[256];
-			sprintf(arquivo_entrada, "./insertion_sort/entradas/%s/%d.txt",vetor_ordens[ordem], vetor_instancias[instancia]);
-			sprintf(arquivo_saida, "./insertion_sort/saidas/%s/%d.txt",vetor_ordens[ordem], vetor_instancias[instancia]);
-			printf("%s\n",arquivo_saida);
-			printf("Gerando arquivos de entrada em \"%s\"...\n",arquivo_entrada);
-			gera_entrada(arquivo_entrada, ordem, vetor_instancias[instancia]);
-			printf("finalizado!\n");
-			double durac = ordenar_arquivo(vetor_instancias[instancia], arquivo_entrada, arquivo_saida, ordem);
-			printf("%f",durac);
-
-			
+			strcpy(nome_algoritmo, "insertion_sort");
+		break;
+		
+		
+		case 2:
+			strcpy(nome_algoritmo, "bubble_sort");
+		break;
+		
+		case 3:
+			strcpy(nome_algoritmo, "shell_sort");
+		break;
+		
+		case 4:
+			strcpy(nome_algoritmo, "selection_sort");
+		break;
+		
+		default:
+			printf("   OPCAO INVALIDA!  \n");
+			executa();
+		
+	}
+	
+	ordem = menu_ordem();
+	switch(ordem){
+		case 0:
+			return 0;
+		break;
+		
+		case 1:
+			ordem = 1;
+		break;
+		
+		case 2:
+			ordem = 2;
+		break;
+		
+		case 3:
+			ordem = 3;
 		break;
 		default:
 			printf("   OPCAO INVALIDA!  \n");
-		
+			executa();
 	}
+	
+	
+	instancia = menu_instancia();
+	
+		switch(instancia){
+		case 0:
+			return 0;
+		break;
+		
+		case 1:
+			instancia = 1;
+		break;
+		
+		case 2:
+			instancia = 2;
+		break;
+		
+		case 3:
+			instancia = 3;
+		break;
+		
+		case 4:
+			instancia = 4;
+		break;
+		
+		case 5:
+			instancia = 5;
+		break;
+		
+		case 6:
+			instancia = 6;
+		break;
+
+		default:
+			printf("   OPCAO INVALIDA!  \n");
+			executa();
+	}
+	
+	for (int i=1; i<5; i++){
+		for (int j = 1; j < 4; j++){
+			ordena(nome_algoritmo, j, i, op_algoritmo);
+		}
+	}
+
 	executa();
 	return 0;
 }

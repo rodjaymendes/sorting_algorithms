@@ -122,7 +122,7 @@ int * arquivo_para_array_1000000(char * arquivo){
 
 
 //ordena arquivo
-float ordenar_arquivo(int n, char * diretorio_entrada, char * diretorio_saida, int tipo){
+float ordenar_arquivo(int n, char * diretorio_entrada, char * diretorio_saida, int tipo, int algoritmo){
 	int * array;
 	char * nome_saida;
 	char * tipo_ord;
@@ -183,9 +183,22 @@ float ordenar_arquivo(int n, char * diretorio_entrada, char * diretorio_saida, i
 	//contagem de tempo
 	clock_t t;
    	t = clock();
-
-   	insertion_sort(array, n);
-
+	switch(algoritmo){
+   		case 1:
+   			insertion_sort(array, n);
+		break;
+		case 2:
+   			bubble_sort(array, n);
+		break;
+		case 3:
+   			shell_sort(array, n);
+		break;
+		case 4:
+   			selection_sort(array, n);
+		break;
+		default:
+			insertion_sort(array, n);
+	}
 	t = clock() - t;
    	double duracao = ((double)t)/CLOCKS_PER_SEC;
 	
@@ -202,5 +215,31 @@ float ordenar_arquivo(int n, char * diretorio_entrada, char * diretorio_saida, i
    	
 	return duracao;
 	
+}
+
+
+//gera arquivo de tempo
+void gera_arquivo_de_tempo(char * arquivo, double duracao){
+	FILE *pt_arquivo;
+	pt_arquivo = fopen(arquivo, "w");
+	fprintf(pt_arquivo, "%s %f\n", arquivo, duracao);
+
+	fclose(pt_arquivo);
+}
+
+
+void ordena(char * nome_algoritmo, int ordem, int instancia, int op_algoritmo){
+	char vetor_ordens[4][16] = {"", "crescentes", "decrescentes", "aleatorias"};
+	int vetor_instancias[7] = {0, 10, 100, 1000, 10000, 100000, 1000000};
+	char arquivo_entrada[256];
+	char arquivo_saida[256];
+	char arquivo_saida_tempo[256];
+	sprintf(arquivo_saida_tempo, "./%s/tempo/%s_%d.txt",nome_algoritmo,vetor_ordens[ordem], vetor_instancias[instancia]);
+	sprintf(arquivo_entrada, "./%s/entradas/%s/%d.txt",nome_algoritmo,vetor_ordens[ordem], vetor_instancias[instancia]);
+	sprintf(arquivo_saida, "./%s/saidas/%s/%d.txt",nome_algoritmo,vetor_ordens[ordem], vetor_instancias[instancia]);
+	gera_entrada(arquivo_entrada, ordem, vetor_instancias[instancia]);			
+	double duracao = ordenar_arquivo(vetor_instancias[instancia], arquivo_entrada, arquivo_saida, ordem, op_algoritmo);
+	gera_arquivo_de_tempo(arquivo_saida_tempo, duracao);
+
 }
 
