@@ -1,4 +1,5 @@
 #include "algoritmos.h"
+#include <time.h>
 
 void gera_entrada(char * arquivo, int ordem, int n){
 	FILE *pt_arquivo;
@@ -179,11 +180,14 @@ float ordenar_arquivo(int n, char * diretorio_entrada, char * diretorio_saida, i
     	}
 	
 	//ordenação
+	//contagem de tempo
+	clock_t t;
+   	t = clock();
 
    	insertion_sort(array, n);
-	for (int i = 0; i < n; i++){
-		printf("%d\t",array[i]);
-	}
+
+	t = clock() - t;
+   	double duracao = ((double)t)/CLOCKS_PER_SEC;
 	
 
 
@@ -196,7 +200,7 @@ float ordenar_arquivo(int n, char * diretorio_entrada, char * diretorio_saida, i
 	fclose(pt_arquivo);
 
    	
-	return 0;
+	return duracao;
 	
 }
 

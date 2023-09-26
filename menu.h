@@ -60,8 +60,8 @@ int executa(){
 			printf("Gerando arquivos de entrada em \"%s\"...\n",arquivo_entrada);
 			gera_entrada(arquivo_entrada, ordem, vetor_instancias[instancia]);
 			printf("finalizado!\n");
-			ordenar_arquivo(vetor_instancias[instancia], arquivo_entrada, arquivo_saida, ordem);
-			
+			double durac = ordenar_arquivo(vetor_instancias[instancia], arquivo_entrada, arquivo_saida, ordem);
+			printf("%f",durac);
 
 			
 		break;
