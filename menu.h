@@ -137,11 +137,11 @@ int executa(){
 			executa();
 	}
 	
-	for (int i=1; i<5; i++){
-		for (int j = 1; j < 4; j++){
-			ordena(nome_algoritmo, j, i, op_algoritmo);
-		}
-	}
+	
+	printf("Processando, pode levar alguns minutos.\n");
+	ordena(nome_algoritmo, ordem, instancia, op_algoritmo);
+	printf("Finalizado.\n");
+
 
 	executa();
 	return 0;

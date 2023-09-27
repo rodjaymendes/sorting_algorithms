@@ -4,10 +4,6 @@
 #include "menu.h"
 #include "arquivo.h"
 
-
-
-
-
 //opções
 #define CRIAR_PASTA 1
 

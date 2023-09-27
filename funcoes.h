@@ -1,22 +1,26 @@
 #include "algoritmos.h"
 #include <time.h>
 
+
+//gera os arquivos de entrada
 void gera_entrada(char * arquivo, int ordem, int n){
 	FILE *pt_arquivo;
 	pt_arquivo = fopen(arquivo, "w");
 	//crescente
 	if (ordem == 1){
+		int aleatorio = rand() % (n +1);
 		for (int i=0; i<n; i++){
-			fprintf(pt_arquivo, "%d\n", (i));
+			fprintf(pt_arquivo, "%d\n", (i + aleatorio));
 			
 		}
 	}
 	
 	//decrescente
 	if (ordem == 2){
-	
+		int aleatorio = rand() % (n +1);
+		printf("\naleatorio %d\n", aleatorio);
 		pt_arquivo = fopen(arquivo, "w");
-		for (int i=n; i>0; i--){
+		for (int i=(n+aleatorio); i > aleatorio; i--){
 			fprintf(pt_arquivo, "%d\n", (i));
 			
 		}
@@ -121,7 +125,7 @@ int * arquivo_para_array_1000000(char * arquivo){
 }
 
 
-//ordena arquivo
+//carrega arquivo em um vetor, ordena e faz a contagem de tempo
 float ordenar_arquivo(int n, char * diretorio_entrada, char * diretorio_saida, int tipo, int algoritmo){
 	int * array;
 	char * nome_saida;
@@ -178,8 +182,6 @@ float ordenar_arquivo(int n, char * diretorio_entrada, char * diretorio_saida, i
 			array = arquivo_para_array_10(diretorio_entrada);
     			nome_saida = "10.txt";
     	}
-	
-	//ordenação
 	//contagem de tempo
 	clock_t t;
    	t = clock();
@@ -227,7 +229,7 @@ void gera_arquivo_de_tempo(char * arquivo, double duracao){
 	fclose(pt_arquivo);
 }
 
-
+//função final de ordenação
 void ordena(char * nome_algoritmo, int ordem, int instancia, int op_algoritmo){
 	char vetor_ordens[4][16] = {"", "crescentes", "decrescentes", "aleatorias"};
 	int vetor_instancias[7] = {0, 10, 100, 1000, 10000, 100000, 1000000};
